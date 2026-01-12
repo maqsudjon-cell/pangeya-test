@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pangeya Essay Platform</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==================== CSS Variables ==================== */
+    :root {
+      --bg-gradient: radial-gradient(circle at top left, #3b0764, #1e1b4b 40%, #020617 80%);
+      --card-bg: rgba(15, 23, 42, 0.92);
+      --accent: #a855f7;
+      --accent2: #ec4899;
+      --accent3: #22c55e;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.3);
+    }
+
+    /* ==================== Reset & Base ==================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* ==================== Theme Variations ==================== */
+    .light-theme {
+      --bg-gradient: linear-gradient(135deg, #e0e7ff, #f5f3ff);
+      --card-bg: #ffffff;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border-soft: rgba(148, 163, 184, 0.5);
+    }
+
+    .dark-theme {
+      --bg-gradient: radial-gradient(circle at top, #020617, #020617 40%, #000000 100%);
+      --card-bg: #020617;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+    }
+
+    /* ==================== Container ==================== */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: linear-gradient(145deg, rgba(88, 28, 135, 0.9), rgba(30, 64, 175, 0.9));
+      padding: 2px;
+      border-radius: 26px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+    }
+
+    .inner {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 20px 20px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .inner {
+        padding: 24px 26px 22px;
+      }
+    }
+
+    /* ==================== Typography ==================== */
+    h1 {
+      font-size: 22px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* ==================== Theme Switcher ==================== */
+    .theme-switcher {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .theme-btn {
+      flex: 1;
+      min-width: 60px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.18s ease;
+    }
+
+    .theme-btn.active {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+    }
+
+    /* ==================== Form Elements ==================== */
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+      margin-top: 6px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      padding: 10px 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    #definition {
+      min-height: 80px;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: #818cf8;
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    input[type="text"]::placeholder,
+    textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* ==================== Buttons ==================== */
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.15s ease;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-teacher {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      box-shadow: 0 8px 20px rgba(34, 197, 94, 0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .emoji-sticker {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      font-size: 24px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* ==================== Name Input Wrapper ==================== */
+    .name-wrapper {
+      position: relative;
+    }
+
+    .ny-icon {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      font-size: 22px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .name-wrapper input[type="text"] {
+      padding-right: 45px;
+    }
+
+    /* ==================== Search Controls ==================== */
+    .essay-search-controls {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 6px;
+      justify-content: flex-end;
+    }
+
+    .essay-search-controls input {
+      flex: 1;
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      background: var(--card-bg);
+      color: var(--text-main);
+      font-size: 12px;
+    }
+
+    .essay-search-controls input::placeholder {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .essay-search-controls button {
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 500;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.1s ease;
+    }
+
+    .essay-search-controls button:hover {
+      transform: translateY(-1px);
+    }
+
+    /* ==================== Section Title ==================== */
+    .section-title {
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-title span.icon {
+      font-size: 17px;
+    }
+
+    /* ==================== Essays List ==================== */
+    .essays-list {
+      margin-top: 4px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .essay-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 18px;
+      padding: 10px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      margin-bottom: 8px;
+      font-size: 13px;
+      position: relative;
+    }
+
+    .essay-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .essay-name {
+      font-weight: 500;
+    }
+
+    .essay-text {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-wrap: anywhere;
+      margin-bottom: 6px;
+      margin-top: 2px;
+      color: var(--text-main);
+    }
+
+    .feedback {
+      margin-top: 4px;
+      padding: 7px 8px;
+      background: rgba(22, 163, 74, 0.16);
+      border-left: 3px solid #22c55e;
+      border-radius: 10px;
+      font-size: 13px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .feedback .fb-check,
+    .feedback .fb-cross {
+      display: block;
+      padding-left: 22px;
+      position: relative;
+      margin: 4px 0;
+    }
+
+    .feedback .fb-check::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: #22c55e;
+    }
+
+    .feedback .fb-cross::before {
+      content: '✘';
+      position: absolute;
+      left: 0;
+      color: #ef4444;
+    }
+
+    .essay-actions {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 11px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .chip-edit {
+      background: #22c55e;
+    }
+
+    .chip-delete {
+      background: #ef4444;
+    }
+
+    .chip-feedback {
+      background: #0ea5e9;
+    }
+
+    .chip-btn:active {
+      transform: translateY(1px);
+    }
+
+    .emoji-card-sticker {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      font-size: 22px;
+      line-height: 1;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .gift-message {
+      position: absolute;
+      bottom: 36px;
+      right: 8px;
+      background: var(--card-bg);
+      color: var(--text-main);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-width: 200px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+      display: none;
+    }
+
+    /* ==================== Teacher Panel ==================== */
+    .teacher-panel {
+      display: none;
+      margin-top: 8px;
+    }
+
+    .teacher-panel input {
+      margin-top: 6px;
+    }
+
+    .teacher-panel .btn-enter {
+      margin-top: 8px;
+    }
+
+    /* ==================== Modal ==================== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      z-index: 999;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 720px;
+      background: #020617;
+      color: #e5e7eb;
+      border-radius: 18px;
+      padding: 16px 16px 14px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content h3 {
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    #editArea,
+    #feedbackArea {
+      width: 100%;
+      min-height: 200px;
+      max-height: 60vh;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 14px;
+      resize: vertical;
+      outline: none;
+    }
+
+    #editArea:focus,
+    #feedbackArea:focus {
+      border-color: #818cf8;
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
+    }
+
+    .modal-actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .small-btn {
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: none;
+      font-size: 12px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .small-save {
+      background: #22c55e;
+    }
+
+    .small-cancel {
+      background: #ef4444;
+    }
+
+    /* ==================== Toolbar ==================== */
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border-soft);
+      border-radius: 4px;
+      padding: 4px 6px;
+      font-size: 13px;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    .icon-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .edit-area {
+      min-height: 120px;
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 8px;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      font-size: 13px;
+      background: var(--card-bg);
+      color: var(--text-main);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      outline: none;
+    }
+
+    .feedback-essay {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 8px;
+      padding: 8px;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      font-size: 12px;
+      background: var(--card-bg);
+      color: var(--text-main);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    /* ==================== Highlight, Underline, Strike ==================== */
+    mark,
+    .user-highlight {
+      background-color: #fef08a;
+      color: #111827;
+    }
+
+    u,
+    .underline-text {
+      text-decoration: underline;
+    }
+
+    s,
+    .strike-text {
+      text-decoration: line-through;
+    }
+
+    /* ==================== Vocabulary Section ==================== */
+    .vocab-list {
+      margin-top: 6px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .vocab-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .vocab-word {
+      flex: 0 0 30%;
+      font-weight: 600;
+      word-break: break-word;
+      margin-right: 8px;
+    }
+
+    .vocab-definition {
+      flex: 1;
+      color: var(--text-main);
+      word-break: break-word;
+    }
+
+    .vocab-delete-btn {
+      margin-left: auto;
+      padding: 2px 6px;
+      font-size: 11px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #ffffff;
+      background: #ef4444;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      transition: transform 0.1s ease;
+    }
+
+    .vocab-delete-btn:hover {
+      transform: translateY(-1px);
+    }
+
+
+    /* ==================== Light Theme Overrides ==================== */
+    .light-theme .essay-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .light-theme .essay-card .essay-text,
+    .light-theme .essay-card .feedback {
+      color: #111827;
+    }
+
+    .light-theme .feedback {
+      background: rgba(34, 197, 94, 0.16);
+      border-left: 3px solid #16a34a;
+    }
+
+    .light-theme .edit-area,
+    .light-theme .feedback-essay {
+      background: #f9fafb;
+      color: #111827;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .light-theme .icon-btn {
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      color: #111827;
+    }
+
+    .light-theme input[type="text"],
+    .light-theme textarea {
+      background: #f9fafb;
+      color: #111827;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .light-theme input[type="text"]::placeholder,
+    .light-theme textarea::placeholder {
+      color: #6b7280;
+    }
+
+    .light-theme input[type="text"]:focus,
+    .light-theme textarea:focus {
+      background: #ffffff;
+      border-color: #818cf8;
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
+    }
+
+    .light-theme .modal-content {
+      background: #ffffff;
+      color: #111827;
+    }
+
+    .light-theme #editArea,
+    .light-theme #feedbackArea {
+      background: #f9fafb;
+      color: #111827;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .light-theme .theme-btn {
+      background: rgba(0, 0, 0, 0.1);
+      color: #111827;
+    }
+
+    .light-theme .weather-btn {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+
+    /* ==================== Responsive ==================== */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 18px;
+      }
+
+      .subtitle {
+        font-size: 11px;
+      }
+
+      .essay-card {
+        font-size: 12px;
+      }
+
+      .modal-content {
+        padding: 14px;
+      }
+
+      #editArea,
+      #feedbackArea {
+        min-height: 170px;
+      }
+
+      .theme-switcher {
+        gap: 6px;
+      }
+
+      .theme-btn {
+        padding: 6px 8px;
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      getDocs,
+      doc,
+      updateDoc,
+      deleteDoc,
+      getDoc,
+      setDoc
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // jsPDF for PDF generation
+    const jsPDFScript = document.createElement('script');
+    jsPDFScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    document.head.appendChild(jsPDFScript);
+
+    // Global state
+    let teacherMode = false;
+    const TEACHER_MODE_LS_KEY = "pangeya_teacher_mode";
+    const TEACHER_MODE_TS_KEY = "pangeya_teacher_mode_ts";
+    const TEACHER_MODE_TTL_MS = 12 * 60 * 60 * 1000; // 12 hours
+
+    let currentEditId = null;
+    let currentFeedbackId = null;
+    let currentEditName = null;
+    let allEssays = [];
+    let allVocab = [];
+    let essayRequestCounter = 0;
+    let vocabRequestCounter = 0;
+    const TEACHER_KEY_HASH = '37df5de213f58f11b0a234621ff47a1818ec5b2a4f71ae5d358e40d251736a50';
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnmbg7CyLki-M1E4rxPevJ741yTykliDA",
+      authDomain: "pangeya-essay.firebaseapp.com",
+      projectId: "pangeya-essay",
+      storageBucket: "pangeya-essay.appspot.com",
+      messagingSenderId: "783326121302",
+      appId: "1:783326121302:web:7d73c5110fb5682e5fdaf7",
+      measurementId: "G-0L1X6WHT1E"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const essaysRef = collection(db, "essays");
+    const vocabRef = collection(db, "vocab");
+
+    // ==================== Utility Functions ====================
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function stripHtml(html) {
+      if (!html) return '';
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || '';
+    }
+
+    function toDateSafe(value) {
+      try {
+        if (!value) return new Date(0);
+        if (typeof value === 'object' && value.seconds !== undefined) {
+          return new Date(value.seconds * 1000);
+        }
+        if (typeof value === 'number') {
+          return new Date(value);
+        }
+        const parsed = Date.parse(value);
+        if (!isNaN(parsed)) {
+          return new Date(parsed);
+        }
+      } catch (err) {
+        console.warn('toDateSafe error:', err);
+      }
+      return new Date(0);
+    }
+
+    function formatDate(date) {
+      const formatter = new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      return formatter.format(date);
+    }
+
+
+    async function sha256Hex(text) {
+      const enc = new TextEncoder();
+      const data = enc.encode(text);
+      const hashBuffer = await crypto.subtle.digest(\'SHA-256\', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, \'0\')).join(\'\');
+    }
+
+    // ==================== Gift Message Functions ====================
+
+    async function getGiftMessage(name) {
+      if (!name) return '';
+      try {
+        const docRef = doc(db, 'giftMessages', name);
+        const snap = await getDoc(docRef);
+        if (snap.exists()) {
+          const data = snap.data();
+          return data && data.message ? data.message : '';
+        }
+        return '';
+      } catch (err) {
+        console.error('Error fetching gift message:', err);
+        return '';
+      }
+    }
+
+    async function saveGiftMessage(name, message) {
+      if (!name) return;
+      try {
+        await setDoc(doc(db, 'giftMessages', name), { message: message }, { merge: true });
+      } catch (err) {
+        console.error('Error saving gift message:', err);
+      }
+    }
+    // ==================== Essay Functions ====================
+
+    async function renderEssays(queryName = '') {
+      const container = document.getElementById('essaysList');
+      const myRequestId = ++essayRequestCounter;
+      container.innerHTML = '';
+
+      const snapshot = await getDocs(essaysRef);
+      if (myRequestId !== essayRequestCounter) return;
+
+      if (snapshot.empty) {
+        container.innerHTML = '<div style="font-size:12px;color:var(--text-muted);padding:2px 2px 6px;">No essays yet. Write and submit your first essay!</div>';
+        allEssays = [];
+        return;
+      }
+
+      const docsArray = [];
+      snapshot.forEach(docSnap => {
+        docsArray.push({ id: docSnap.id, data: docSnap.data() });
+      });
+      allEssays = docsArray;
+
+      // Sort by date descending
+      const sorted = allEssays.slice().sort((a, b) => {
+        const tA = toDateSafe(a.data.timestamp ?? a.data.date).getTime();
+        const tB = toDateSafe(b.data.timestamp ?? b.data.date).getTime();
+        return tB - tA;
+      });
+
+      // Filter by name if query provided
+      const q = queryName.trim().toLowerCase();
+      const filtered = q ? sorted.filter(item => {
+        const name = (item.data.name || '').toLowerCase();
+        const text = stripHtml(item.data.essay || '').toLowerCase();
+        return name.includes(q) || text.includes(q);
+      }) : sorted;
+
+      if (!filtered.length) {
+        container.innerHTML = '<div style="font-size:12px;color:var(--text-muted);padding:2px 2px 6px;">No results found.</div>';
+        return;
+      }
+
+      for (const item of filtered) {
+        if (myRequestId !== essayRequestCounter) return;
+
+        const data = item.data;
+        const card = document.createElement('div');
+        card.className = 'essay-card';
+
+        const header = document.createElement('div');
+        header.className = 'essay-header';
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'essay-name';
+        nameSpan.textContent = data.name || 'Unknown';
+
+        const dateSpan = document.createElement('span');
+        dateSpan.textContent = data.date || formatDate(toDateSafe(data.timestamp));
+
+        header.appendChild(nameSpan);
+        header.appendChild(dateSpan);
+
+        const textDiv = document.createElement('div');
+        textDiv.className = 'essay-text';
+        textDiv.innerHTML = data.essay || '';
+
+        // Word count
+        const plainText = stripHtml(data.essay || '');
+        const wordCount = plainText.trim() ? plainText.trim().split(/\s+/).length : 0;
+        const wordCountDiv = document.createElement('div');
+        wordCountDiv.style.cssText = 'font-size:11px;color:var(--text-muted);margin-bottom:4px;';
+        wordCountDiv.textContent = `Words: ${wordCount}`;
+
+        card.appendChild(header);
+        card.appendChild(textDiv);
+        card.appendChild(wordCountDiv);
+
+        // Feedback
+        if (data.feedback) {
+          const fbDiv = document.createElement('div');
+          fbDiv.className = 'feedback';
+          fbDiv.innerHTML = data.feedback.replace(/\n/g, '<br>');
+          card.appendChild(fbDiv);
+        }
+
+        // Actions
+        const actions = document.createElement('div');
+        actions.className = 'essay-actions';
+
+        if (teacherMode) {
+          const editBtn = document.createElement('button');
+          editBtn.className = 'chip-btn chip-edit';
+          editBtn.textContent = 'Edit';
+          editBtn.onclick = () => openEditModal(item.id, data);
+
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'chip-btn chip-delete';
+          deleteBtn.textContent = 'Delete';
+          deleteBtn.onclick = () => deleteEssay(item.id);
+
+          const feedbackBtn = document.createElement('button');
+          feedbackBtn.className = 'chip-btn chip-feedback';
+          feedbackBtn.textContent = 'Feedback';
+          feedbackBtn.onclick = () => openFeedbackModal(item.id, data);
+
+          actions.appendChild(editBtn);
+          actions.appendChild(deleteBtn);
+          actions.appendChild(feedbackBtn);
+        }
+
+        card.appendChild(actions);
+
+        // Gift sticker
+        const sticker = document.createElement('span');
+        sticker.className = 'emoji-card-sticker';
+        sticker.textContent = '🎁';
+        sticker.onclick = async () => {
+          const msg = await getGiftMessage(data.name || '');
+          if (msg) {
+            alert(msg);
+          } else {
+            alert('No gift message set for this author.');
+          }
+        };
+        card.appendChild(sticker);
+
+        container.appendChild(card);
+      }
+    }
+
+    async function submitEssay() {
+      const nameInput = document.getElementById('name');
+      const essayInput = document.getElementById('essay');
+      const name = nameInput.value.trim();
+      const essay = essayInput.value.trim();
+      const giftInput = document.getElementById('giftMessage');
+      const giftMessage = giftInput ? giftInput.value.trim() : '';
+
+      if (!name || !essay) {
+        alert('Please enter your name and essay.');
+        return;
+      }
+
+      const now = new Date();
+      await addDoc(essaysRef, {
+        name: name,
+        essay: essay,
+        date: formatDate(now),
+        timestamp: now.getTime(),
+        feedback: ''
+      });
+
+      // Save gift message for this name (student-controlled)
+      if (giftMessage) {
+        await saveGiftMessage(name, giftMessage);
+      }
+
+      essayInput.value = '';
+      nameInput.value = '';
+      const giftEl = document.getElementById('giftMessage');
+      if (giftEl) giftEl.value = '';
+      alert('Essay saved to the cloud.');
+      renderEssays();
+    }
+
+    function searchEssays() {
+      const searchInput = document.getElementById('essaySearch');
+      const q = searchInput ? searchInput.value.trim() : '';
+      renderEssays(q);
+    }
+
+    async function deleteEssay(docId) {
+      if (!confirm('Delete this essay?')) return;
+      await deleteDoc(doc(db, 'essays', docId));
+      renderEssays();
+    }
+
+    // ==================== Edit Modal ====================
+
+    async function openEditModal(docId, data) {
+      currentEditId = docId;
+      currentEditName = data && data.name ? data.name : null;
+      const editArea = document.getElementById('editArea');
+      editArea.innerHTML = data.essay || '';
+
+      document.getElementById('editModal').style.display = 'flex';
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+      currentEditId = null;
+    }
+
+    async function saveEdit() {
+      if (!currentEditId) return;
+      const updated = document.getElementById('editArea').innerHTML;
+      await updateDoc(doc(db, 'essays', currentEditId), { essay: updated });
+
+      await renderEssays();
+      closeEditModal();
+    }
+
+    // ==================== Feedback Modal ====================
+
+    function openFeedbackModal(docId, data) {
+      currentFeedbackId = docId;
+      document.getElementById('feedbackArea').value = data.feedback || '';
+      const essayDiv = document.getElementById('feedbackEssay');
+      essayDiv.innerHTML = data.essay || '';
+      document.getElementById('feedbackModal').style.display = 'flex';
+    }
+
+    function closeFeedbackModal() {
+      document.getElementById('feedbackModal').style.display = 'none';
+      currentFeedbackId = null;
+    }
+
+    async function saveFeedback() {
+      if (!currentFeedbackId) return;
+      const updated = document.getElementById('feedbackArea').value;
+      const essayUpdated = document.getElementById('feedbackEssay').innerHTML;
+      await updateDoc(doc(db, 'essays', currentFeedbackId), { feedback: updated, essay: essayUpdated });
+      renderEssays();
+      closeFeedbackModal();
+    }
+
+    // ==================== Rich Text Formatting ====================
+
+    function findTagParent(node, tagNames, editableParent) {
+      while (node && node !== editableParent) {
+        if (node.nodeType === 1) {
+          const nodeName = node.nodeName.toLowerCase();
+          if (tagNames.includes(nodeName)) return node;
+          if (node.classList) {
+            if (tagNames.includes('mark') && node.classList.contains('user-highlight')) return node;
+            if (tagNames.includes('u') && node.classList.contains('underline-text')) return node;
+            if (tagNames.includes('s') && node.classList.contains('strike-text')) return node;
+          }
+        }
+        node = node.parentNode;
+      }
+      return null;
+    }
+
+    function getEditableParent(sel) {
+      if (!sel.rangeCount) return null;
+      const range = sel.getRangeAt(0);
+      let containerNode = range.commonAncestorContainer;
+      let editableParent = null;
+      if (containerNode.nodeType === 1) {
+        editableParent = containerNode.closest('[contenteditable="true"]');
+      } else {
+        editableParent = containerNode.parentElement ? containerNode.parentElement.closest('[contenteditable="true"]') : null;
+      }
+      if (!editableParent || (editableParent.id !== 'editArea' && editableParent.id !== 'feedbackEssay')) return null;
+      return editableParent;
+    }
+
+    function highlightSelection() {
+      const sel = window.getSelection();
+      const editableParent = getEditableParent(sel);
+      if (!editableParent) return;
+      editableParent.focus();
+      const selectedText = sel.toString();
+      if (!selectedText) return;
+      let markParent = findTagParent(sel.anchorNode, ['mark'], editableParent) || findTagParent(sel.focusNode, ['mark'], editableParent);
+      if (markParent) {
+        const text = markParent.textContent;
+        markParent.replaceWith(document.createTextNode(text));
+      } else {
+        const markHtml = `<mark>${selectedText}</mark>`;
+        document.execCommand('insertHTML', false, markHtml);
+      }
+    }
+
+    function underlineSelection() {
+      const sel = window.getSelection();
+      const editableParent = getEditableParent(sel);
+      if (!editableParent) return;
+      editableParent.focus();
+      const selectedText = sel.toString();
+      if (!selectedText) return;
+      let underlineParent = findTagParent(sel.anchorNode, ['u'], editableParent) || findTagParent(sel.focusNode, ['u'], editableParent);
+      if (underlineParent) {
+        const text = underlineParent.textContent;
+        underlineParent.replaceWith(document.createTextNode(text));
+      } else {
+        const uHtml = `<u>${selectedText}</u>`;
+        document.execCommand('insertHTML', false, uHtml);
+      }
+    }
+
+    function strikeSelection() {
+      const sel = window.getSelection();
+      const editableParent = getEditableParent(sel);
+      if (!editableParent) return;
+      editableParent.focus();
+      const selectedText = sel.toString();
+      if (!selectedText) return;
+      let strikeParent = findTagParent(sel.anchorNode, ['s'], editableParent) || findTagParent(sel.focusNode, ['s'], editableParent);
+      if (strikeParent) {
+        const text = strikeParent.textContent;
+        strikeParent.replaceWith(document.createTextNode(text));
+      } else {
+        const sHtml = `<s>${selectedText}</s>`;
+        document.execCommand('insertHTML', false, sHtml);
+      }
+    }
+
+    // ==================== Teacher Mode ====================
+
+    function logoutTeacherMode() {
+      teacherMode = false;
+      localStorage.removeItem(TEACHER_MODE_LS_KEY);
+      localStorage.removeItem(TEACHER_MODE_TS_KEY);
+      alert('Teacher mode disabled.');
+      renderEssays();
+    }
+
+    function toggleTeacherPanel() {
+      const panel = document.getElementById('teacherPanel');
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+
+    async function enterTeacherMode() {
+      const key = document.getElementById('teacherKey').value.trim();
+      if (!key) { alert('Enter teacher key.'); return; }
+      try {
+        const enteredHash = await sha256Hex(key);
+        if (enteredHash === TEACHER_KEY_HASH) {
+          teacherMode = true;
+          localStorage.setItem(TEACHER_MODE_LS_KEY, '1');
+          localStorage.setItem(TEACHER_MODE_TS_KEY, String(Date.now()));
+          alert('Teacher mode enabled (saved for 12 hours on this device).');
+          document.getElementById('teacherKey').value = '';
+          document.getElementById('teacherPanel').style.display = 'none';
+          renderEssays();
+        } else {
+          alert('Wrong key.');
+        }
+      } catch (e) {
+        console.error(e);
+        alert('Teacher mode failed (browser does not support crypto).');
+      }
+    }
+
+    // ==================== Theme Switching ====================
+
+    function setTheme(theme) {
+      const body = document.body;
+      body.classList.remove('light-theme', 'dark-theme');
+
+      document.getElementById('neonTheme').classList.remove('active');
+      document.getElementById('lightTheme').classList.remove('active');
+      document.getElementById('darkTheme').classList.remove('active');
+    }
+
+    // ==================== PDF Download ====================
+
+    async function downloadPDF() {
+      if (!window.jspdf) {
+        alert('PDF library is still loading. Please try again in a moment.');
+        return;
+      }
+      const { jsPDF } = window.jspdf;
+      const docPDF = new jsPDF({ unit: 'pt', format: 'a4' });
+
+      let name = document.getElementById('name').value.trim();
+      let essay = document.getElementById('essay').value.trim();
+
+      if (!name || !essay) {
+        const snapshot = await getDocs(essaysRef);
+        const docsList = snapshot.docs;
+        if (docsList.length) {
+          const last = docsList[docsList.length - 1].data();
+          if (!name) name = last.name || 'Unknown';
+          if (!essay) essay = last.essay || '';
+        }
+      }
+
+      if (!essay) {
+        alert('There is no essay text to export.');
+        return;
+      }
+      if (!name) name = 'Unknown';
+
+      docPDF.setFontSize(22);
+      docPDF.setTextColor(140, 0, 255);
+      docPDF.text('Pangeya Essay Report', 40, 50);
+
+      docPDF.setFontSize(12);
+      docPDF.setTextColor(0, 0, 0);
+      docPDF.text('Name: ' + name, 40, 90);
+
+      const nowPDF = new Date();
+      docPDF.text('Date: ' + formatDate(nowPDF), 40, 110);
+
+      docPDF.setFontSize(14);
+      docPDF.setTextColor(30, 30, 30);
+      docPDF.text('Essay:', 40, 150);
+
+      const plainEssay = stripHtml(essay);
+      const lines = docPDF.splitTextToSize(plainEssay, 520);
+      docPDF.text(lines, 40, 180);
+
+      docPDF.save('pangeya-essay.pdf');
+    }
+
+    // ==================== Vocabulary Functions ====================
+
+    function switchToVocab() {
+      const essaySection = document.getElementById('essaySection');
+      const vocabSection = document.getElementById('vocabSection');
+      if (essaySection && vocabSection) {
+        essaySection.style.display = 'none';
+        vocabSection.style.display = 'block';
+      }
+    }
+
+    function switchToEssays() {
+      const essaySection = document.getElementById('essaySection');
+      const vocabSection = document.getElementById('vocabSection');
+      if (essaySection && vocabSection) {
+        vocabSection.style.display = 'none';
+        essaySection.style.display = 'block';
+      }
+    }
+
+    async function renderVocab(query = '') {
+      const container = document.getElementById('vocabList');
+      if (!container) return;
+
+      const myVocabRequestId = ++vocabRequestCounter;
+      container.innerHTML = '';
+
+      const snapshot = await getDocs(vocabRef);
+      if (myVocabRequestId !== vocabRequestCounter) return;
+
+      if (snapshot.empty) {
+        container.innerHTML = '<div style="font-size:12px;color:var(--text-muted);padding:2px 2px 6px;">No vocabulary items yet. Add your first word!</div>';
+        allVocab = [];
+        return;
+      }
+
+      const items = [];
+      snapshot.forEach(docSnap => {
+        items.push({ id: docSnap.id, data: docSnap.data() });
+      });
+      allVocab = items;
+
+      const q = query.trim().toLowerCase();
+      let filtered = q ? allVocab.filter(item => ((item.data.word || '').toLowerCase().includes(q))) : allVocab;
+
+      filtered = filtered.slice().sort((a, b) => {
+        const tA = toDateSafe(a.data.timestamp ?? a.data.date).getTime();
+        const tB = toDateSafe(b.data.timestamp ?? b.data.date).getTime();
+        return tB - tA;
+      });
+
+      if (!filtered.length) {
+        container.innerHTML = '<div style="font-size:12px;color:var(--text-muted);padding:2px 2px 6px;">No results for "' + q + '".</div>';
+        return;
+      }
+
+      for (const item of filtered) {
+        if (myVocabRequestId !== vocabRequestCounter) return;
+
+        const data = item.data;
+        const card = document.createElement('div');
+        card.className = 'vocab-item';
+
+        const wordEl = document.createElement('div');
+        wordEl.className = 'vocab-word';
+        wordEl.textContent = data.word || 'Unknown';
+
+        const defEl = document.createElement('div');
+        defEl.className = 'vocab-definition';
+        defEl.innerHTML = data.definition ? escapeHtml(data.definition) : '';
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'vocab-delete-btn';
+        delBtn.textContent = 'Delete';
+        delBtn.title = 'Delete word';
+        delBtn.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          if (confirm('Delete this vocabulary entry?')) {
+            await deleteVocab(item.id);
+          }
+        });
+
+        card.appendChild(wordEl);
+        card.appendChild(defEl);
+        card.appendChild(delBtn);
+        container.appendChild(card);
+      }
+    }
+
+    async function addVocab() {
+      const wordInput = document.getElementById('word');
+      const defInput = document.getElementById('definition');
+      if (!wordInput || !defInput) return;
+
+      const word = (wordInput.value || '').trim();
+      const definition = (defInput.value || '').trim();
+
+      if (word && definition) {
+        const nowVocab = new Date();
+        await addDoc(vocabRef, {
+          word: word,
+          definition: definition,
+          timestamp: nowVocab.getTime(),
+          date: formatDate(nowVocab)
+        });
+        wordInput.value = '';
+        defInput.value = '';
+        renderVocab();
+        alert('Word added successfully.');
+        return;
+      }
+
+      if (!definition) {
+        alert('Please enter some vocabulary entries or provide both a word and definition.');
+        return;
+      }
+
+      // Multi-line input parsing
+      const lines = definition.split(/\n+/);
+      let addedCount = 0;
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+        const noEnum = trimmed.replace(/^\s*\d+\.\s*/, '').replace(/^[-•]\s*/, '');
+        const parts = noEnum.split(/:\s*/);
+        if (parts.length < 2) continue;
+        let w = parts[0].trim();
+        let def = parts.slice(1).join(':').trim();
+        w = w.replace(/\([^)]*\)/g, '').trim();
+        if (!w || !def) continue;
+        try {
+          const nowLine = new Date();
+          await addDoc(vocabRef, {
+            word: w,
+            definition: def,
+            timestamp: nowLine.getTime(),
+            date: formatDate(nowLine)
+          });
+          addedCount++;
+        } catch (err) {
+          console.error('Failed to add vocab:', err);
+        }
+      }
+
+      wordInput.value = '';
+      defInput.value = '';
+      renderVocab();
+      if (addedCount > 0) {
+        alert(addedCount + ' vocab item(s) added successfully.');
+      } else {
+        alert('No valid vocab entries found.');
+      }
+    }
+
+    function searchVocab() {
+      const searchInput = document.getElementById('vocabSearch');
+      if (!searchInput) return;
+      const q = (searchInput.value || '').trim();
+      renderVocab(q);
+    }
+
+    async function deleteVocab(id) {
+      if (!id) return;
+      try {
+        const ref = doc(vocabRef, id);
+        await deleteDoc(ref);
+        const searchInput = document.getElementById('vocabSearch');
+        const q = searchInput ? (searchInput.value || '').trim() : '';
+        renderVocab(q);
+      } catch (err) {
+        console.error('Failed to delete vocab:', err);
+        alert('Failed to delete this vocabulary entry.');
+      }
+    }
+
+    // ==================== Event Listeners ====================
+
+    document.getElementById('submitBtn').addEventListener('click', submitEssay);
+    document.getElementById('pdfBtn').addEventListener('click', downloadPDF);
+    document.getElementById('teacherToggle').addEventListener('click', toggleTeacherPanel);
+    document.getElementById('teacherEnter').addEventListener('click', enterTeacherMode);
+    document.getElementById('teacherLogout').addEventListener('click', logoutTeacherMode);
+
+    // Student gift message loader
+    const nameEl = document.getElementById('name');
+    const giftEl = document.getElementById('giftMessage');
+
+    async function loadGiftForName() {
+      if (!nameEl || !giftEl) return;
+      const n = (nameEl.value || '').trim();
+      if (!n) { giftEl.value = ''; return; }
+      const msg = await getGiftMessage(n);
+      giftEl.value = msg || '';
+    }
+
+    if (nameEl) {
+      nameEl.addEventListener('blur', loadGiftForName);
+      nameEl.addEventListener('change', loadGiftForName);
+    }
+
+    document.getElementById('neonTheme').addEventListener('click', () => setTheme('neon'));
+    document.getElementById('lightTheme').addEventListener('click', () => setTheme('light'));
+    document.getElementById('darkTheme').addEventListener('click', () => setTheme('dark'));
+    if (pangeyaBtn) {
+      pangeyaBtn.addEventListener('click', () => setTheme('pangeya'));
+    }
+
+    const essaySearchInput = document.getElementById('essaySearch');
+    if (essaySearchInput) {
+      essaySearchInput.addEventListener('input', () => searchEssays());
+      essaySearchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          searchEssays();
+        }
+      });
+    }
+
+    // Vocabulary events
+    document.getElementById('addVocabBtn')?.addEventListener('click', addVocab);
+    document.getElementById('vocabSearchBtn')?.addEventListener('click', searchVocab);
+
+    const vocabSearchEl = document.getElementById('vocabSearch');
+    if (vocabSearchEl) {
+      vocabSearchEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          searchVocab();
+        }
+      });
+    }
+
+    const backBtn = document.getElementById('backToEssays');
+    if (backBtn) {
+      backBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchToEssays();
+      });
+    }
+
+    // Modal close on outside click
+    window.addEventListener('click', (e) => {
+      const editM = document.getElementById('editModal');
+      const fbM = document.getElementById('feedbackModal');
+      if (e.target === editM) closeEditModal();
+      if (e.target === fbM) closeFeedbackModal();
+    });
+
+    // Paste restriction
+    (function() {
+      const essayEl = document.getElementById('essay');
+      if (essayEl) {
+        let pasteAllowed = false;
+        essayEl.addEventListener('paste', (e) => {
+          if (!pasteAllowed) {
+            e.preventDefault();
+            alert('🚫 No copy-paste ninjas: To unlock paste, please type "Pink bubblegumzilla" first.');
+          }
+        });
+        essayEl.addEventListener('input', () => {
+          if (!pasteAllowed && essayEl.value.includes('Pink bubblegumzilla')) {
+            pasteAllowed = true;
+          }
+        });
+      }
+    })();
+
+    // Expose functions globally
+    window.openEditModal = openEditModal;
+    window.closeEditModal = closeEditModal;
+    window.saveEdit = saveEdit;
+    window.openFeedbackModal = openFeedbackModal;
+    window.closeFeedbackModal = closeFeedbackModal;
+    window.saveFeedback = saveFeedback;
+    window.highlightSelection = highlightSelection;
+    window.underlineSelection = underlineSelection;
+    window.strikeSelection = strikeSelection;
+    window.switchToEssays = switchToEssays;
+    window.switchToVocab = switchToVocab;
+    // Restore teacher mode (device-local, 12h TTL)
+    (function restoreTeacherMode() {
+      const flag = localStorage.getItem(TEACHER_MODE_LS_KEY);
+      const ts = Number(localStorage.getItem(TEACHER_MODE_TS_KEY) || 0);
+      if (flag === '1' && ts && (Date.now() - ts) < TEACHER_MODE_TTL_MS) {
+        teacherMode = true;
+      } else {
+        localStorage.removeItem(TEACHER_MODE_LS_KEY);
+        localStorage.removeItem(TEACHER_MODE_TS_KEY);
+      }
+    })();
+
+    // Initial render
+    renderEssays();
+  </script>
+
+  <div class="container">
+    <!-- Essay Section -->
+    <div id="essaySection" class="inner">
+      <h1>✨ Pangeya Essay Platform</h1>
+      <div class="subtitle">Write, save and print essays. Teachers can leave feedback with a secret key.</div>
+      <!-- Theme Switcher -->
+      <div class="theme-switcher">
+        <button class="theme-btn active" id="neonTheme">Neon</button>
+        <button class="theme-btn" id="lightTheme">Light</button>
+        <button class="theme-btn" id="darkTheme">Dark</button>
+      </div>
+
+      <!-- Name Input -->
+      <label for="name">Your name</label>
+      <div class="name-wrapper">
+        <input id="name" type="text" placeholder="Enter your name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <span class="ny-icon">🎄</span>
+      </div>
+
+      <!-- Essay Textarea -->
+      <label for="essay">Write your essay</label>
+      <textarea id="essay" placeholder="Write your essay..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+
+
+      <!-- Gift Message (Student editable) -->
+      <label for="giftMessage">Your gift message (optional)</label>
+      <input id="giftMessage" type="text" placeholder="Type your gift message that will appear when 🎁 is clicked" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <!-- Action Buttons -->
+      <button class="btn btn-primary" id="submitBtn">
+        Submit
+        <span class="emoji-sticker">🎉</span>
+      </button>
+      <button class="btn btn-secondary" id="pdfBtn">
+        Download PDF
+        <span class="emoji-sticker">🎁</span>
+      </button>
+      <button class="btn btn-teacher" id="teacherToggle">
+        Teacher Mode
+        <span class="emoji-sticker">🎅</span>
+      </button>
+
+      <!-- Teacher Panel -->
+      <div class="teacher-panel" id="teacherPanel">
+        <label for="teacherKey">Teacher Key</label>
+        <input type="text" id="teacherKey" placeholder="Enter teacher key">
+        <button class="btn btn-teacher btn-enter" id="teacherEnter">Enter</button>
+      </div>
+        <button class="btn btn-secondary" id="teacherLogout" type="button" style="margin-top:8px;">Logout Teacher</button>
+      </div>
+
+      <!-- Essays List -->
+      <div class="section-title">
+        <span class="icon">📝</span> All Essays
+      </div>
+      <div class="essay-search-controls">
+        <input type="text" id="essaySearch" placeholder="Search by name or content...">
+        <button onclick="searchEssays()">Search</button>
+      </div>
+      <div class="essays-list" id="essaysList"></div>
+
+      <!-- Navigation to Vocabulary -->
+      <div style="margin-top: 16px; text-align: center;">
+        <a href="#" onclick="switchToVocab(); return false;" style="color: var(--accent); text-decoration: none; font-size: 13px;">📚 Go to Vocabulary</a>
+      </div>
+    </div>
+
+    <!-- Vocabulary Section (Hidden by default) -->
+    <div id="vocabSection" class="inner" style="display: none;">
+      <h1>📚 Vocabulary</h1>
+      <div class="subtitle">Build your vocabulary by adding words and definitions.</div>
+
+      <label for="word">Word</label>
+      <input type="text" id="word" placeholder="Enter a word">
+
+      <label for="definition">Definition</label>
+      <textarea id="definition" placeholder="Enter the definition or paste multiple entries (format: word: definition)"></textarea>
+
+      <button class="btn btn-primary" id="addVocabBtn">Add Word</button>
+
+      <div class="section-title">
+        <span class="icon">📖</span> Your Words
+      </div>
+      <div class="essay-search-controls">
+        <input type="text" id="vocabSearch" placeholder="Search words...">
+        <button id="vocabSearchBtn">Search</button>
+      </div>
+      <div class="vocab-list" id="vocabList"></div>
+
+      <div style="margin-top: 16px; text-align: center;">
+        <a href="#" id="backToEssays" style="color: var(--accent); text-decoration: none; font-size: 13px;">📝 Back to Essays</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <h3>Edit Essay</h3>
+      <div class="toolbar">
+        <button class="icon-btn" onclick="highlightSelection()" title="Highlight">🖍</button>
+        <button class="icon-btn" onclick="underlineSelection()" title="Underline">U̲</button>
+        <button class="icon-btn" onclick="strikeSelection()" title="Strikethrough">S̶</button>
+      </div>
+      <div id="editArea" class="edit-area" contenteditable="true"></div>
+      <div class="modal-actions">
+        <button class="small-btn small-save" onclick="saveEdit()">Save</button>
+        <button class="small-btn small-cancel" onclick="closeEditModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal" id="feedbackModal">
+    <div class="modal-content">
+      <h3>Leave Feedback</h3>
+      <div class="toolbar">
+        <button class="icon-btn" onclick="highlightSelection()" title="Highlight">🖍</button>
+        <button class="icon-btn" onclick="underlineSelection()" title="Underline">U̲</button>
+        <button class="icon-btn" onclick="strikeSelection()" title="Strikethrough">S̶</button>
+      </div>
+      <div id="feedbackEssay" class="feedback-essay" contenteditable="true"></div>
+      <label for="feedbackArea">Feedback</label>
+      <textarea id="feedbackArea" placeholder="Write your feedback here..."></textarea>
+      <div class="modal-actions">
+        <button class="small-btn small-save" onclick="saveFeedback()">Save</button>
+        <button class="small-btn small-cancel" onclick="closeFeedbackModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
