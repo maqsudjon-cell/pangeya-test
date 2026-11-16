@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MPSF — Maqsudjon Polatov & Sohiba Fayzullayeva</title>
+  <meta name="description" content="MPSF — Maqsudjon Polatov va Sohiba Fayzullayeva. MP va SF. Ikki ism, bir belgi.">
+  <meta name="theme-color" content="#F7F1E8">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://mpsf.us/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,560;1,9..144,500&family=Outfit:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f1e8; --ink: #14110f; --cinnabar: #8c2a24;
+      --dust: #7e746c; --line: #e4d8cc; --ash: #e7e2da; --blush: #f6e3dc;
+      --display: "Fraunces", "Iowan Old Style", Palatino, serif;
+      --sans: Outfit, "Avenir Next", "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--paper); color: var(--ink); transition: background-color 280ms ease; }
+    html[data-tone="mp"], html[data-tone="mp"] body { background: var(--ash); }
+    html[data-tone="sf"], html[data-tone="sf"] body { background: var(--blush); }
+    body { min-height: 100svh; font-family: var(--sans); font-weight: 400; line-height: 1.5; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    button:disabled { cursor: default; }
+    ::selection { background: var(--cinnabar); color: var(--paper); }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+    .bar, .hero, .sheet, .close { }
+    .bar { display: flex; justify-content: space-between; padding: 1.25rem 1.25rem 0; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dust); }
+    .brand { display: inline-flex; gap: 0.35rem; }
+    .sf { color: var(--cinnabar); }
+    .hero { min-height: 100svh; display: flex; flex-direction: column; align-items: center; padding: 1.5rem 1rem 2.5rem; overflow-x: clip; }
+    .stage { width: min(100%, 52rem); margin-top: auto; display: grid; grid-template-columns: minmax(0,1fr) 2.75rem minmax(0,1fr); align-items: start; justify-items: center; container-type: inline-size; }
+    .pair { width: 100%; display: flex; justify-content: center; margin: 0; padding: 0.25rem 0; border: 0; background: transparent; text-align: center; transition: opacity 200ms ease; }
+    .pair:focus-visible, .row:focus-visible, .actions button:focus-visible, .field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 3px; }
+    .stage[data-focus="mp"] .pair-sf, .stage[data-focus="sf"] .pair-mp { opacity: 0.28; }
+    .half { display: flex; flex-direction: column; align-items: center; }
+    .glyphs { display: flex; font-family: var(--display); font-weight: 560; font-size: clamp(4.25rem, 18vw, 8.75rem); line-height: 0.8; letter-spacing: -0.045em; }
+    .who { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; margin-top: 1.15rem; }
+    .given, .family { font-family: var(--display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; }
+    .given { font-size: clamp(1.35rem, 3.4vw, 2.15rem); }
+    .family { font-style: italic; font-size: clamp(1.15rem, 3vw, 1.85rem); }
+    .pair-sf .glyphs, .pair-sf .who, .side-sf .row-letter, .side-sf .row-name { color: var(--cinnabar); }
+    .seal-slot { width: 2.75rem; display: flex; justify-content: center; margin-top: calc(clamp(4.25rem, 18vw, 8.75rem) * 0.28); }
+    .seal { width: 0.62rem; height: 0.62rem; border-radius: 999px; background: linear-gradient(90deg, var(--ink) 50%, var(--cinnabar) 50%); }
+    .readout { margin: 2rem 0 0; min-height: 1.6em; text-align: center; font-family: var(--display); font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 500; letter-spacing: -0.02em; }
+    .hint { margin: 0.4rem 0 0; color: var(--dust); font-size: 0.875rem; }
+    .replay, .actions button { min-height: 2.75rem; padding: 0 1.1rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+    .replay { margin-top: 1.75rem; margin-bottom: auto; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .replay:active, .actions button:active { scale: 0.96; }
+    .sheet, .close { width: min(100% - 2.5rem, 68rem); margin: 0 auto; padding: 4.5rem 0 1rem; }
+    .index { margin: 0 0 0.75rem; color: var(--cinnabar); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.22em; }
+    h2 { margin: 0; font-family: var(--display); font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 560; letter-spacing: -0.03em; line-height: 1.05; }
+    .lead { max-width: 36rem; margin: 1rem 0 0; font-size: 1.05rem; }
+    .ledger { margin-top: 2.25rem; display: grid; gap: 0.75rem; }
+    .side { list-style: none; margin: 0; padding: 0; }
+    .spine { display: flex; align-items: center; justify-content: center; min-height: 1.5rem; }
+    .spine span { display: block; width: 2.5rem; height: 1px; background: var(--cinnabar); }
+    .row { width: 100%; min-height: 4.25rem; display: grid; grid-template-columns: 2.5rem minmax(0,1fr) auto; gap: 0.85rem; align-items: baseline; padding: 0.85rem 0; border: 0; border-top: 1px solid var(--line); background: transparent; text-align: left; }
+    .side li:last-child .row { border-bottom: 1px solid var(--line); }
+    .side-mp .row[aria-pressed="true"], .side-mp .row[aria-pressed="true"] .row-role { color: var(--ink); }
+    .row-letter { font-family: var(--display); font-size: 1.85rem; font-weight: 560; line-height: 1; }
+    .row-name { font-family: var(--display); font-size: clamp(1.35rem, 3vw, 1.85rem); font-weight: 500; letter-spacing: -0.02em; }
+    .row-role { color: var(--dust); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+    .card { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+    .card-mark, .card-names, .card-domain, .field-note, .count { margin: 0; }
+    .card-mark { font-family: var(--display); font-size: clamp(2.75rem, 8vw, 4rem); font-weight: 560; letter-spacing: -0.045em; line-height: 0.85; }
+    .card-names { display: flex; flex-direction: column; gap: 0.15rem; margin-top: 0.85rem; font-family: var(--display); font-size: clamp(1.25rem, 3vw, 1.65rem); font-weight: 500; }
+    .card-names .sf { font-style: italic; }
+    .card-domain, .domain { color: var(--dust); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; }
+    .card-domain { margin-top: 0.85rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+    .field { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; margin-top: 1.5rem; }
+    .field label { color: var(--dust); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+    .field input, .field textarea { width: 100%; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; color: var(--ink); font: inherit; font-family: var(--display); font-size: 1.35rem; padding: 0.65rem 0; }
+    .field textarea { min-height: 6.5rem; resize: vertical; }
+    .field-note { color: var(--dust); font-size: 0.875rem; }
+    .count { display: flex; flex-direction: column; margin-top: 0.35rem; }
+    .count-num { font-family: var(--display); font-size: clamp(2.5rem, 7vw, 3.5rem); font-weight: 560; letter-spacing: -0.04em; line-height: 0.9; }
+    .count-meta { color: var(--dust); font-size: 0.875rem; }
+    .text-btn { margin-top: 0.35rem; min-height: 2.75rem; padding: 0; border: 0; background: transparent; color: var(--dust); }
+    .close { padding-bottom: 3.5rem; text-align: center; }
+    .vow { margin: 0 auto; max-width: 18em; font-family: var(--display); font-size: clamp(1.85rem, 4.5vw, 3rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1.15; }
+    .vow .sf, .vow .and { font-style: italic; }
+    .vow .and { color: var(--dust); }
+    .domain { margin: 1.25rem 0 0; }
+    @media (min-width: 800px) {
+      .bar { padding: 1.5rem 2rem 0; }
+      .hero { padding-inline: 2rem; }
+      .ledger { grid-template-columns: 1fr auto 1fr; gap: 2.5rem; }
+      .spine { min-height: 100%; }
+      .spine span { width: 1px; height: 100%; background: var(--line); position: relative; }
+      .spine span::after { content: ""; position: absolute; left: 50%; top: 50%; width: 0.55rem; height: 0.55rem; border-radius: 999px; background: linear-gradient(90deg, var(--ink) 50%, var(--cinnabar) 50%); transform: translate(-50%, -50%); }
+      .keep { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .sheet, .close { width: min(100% - 4rem, 68rem); }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .half-mp { animation: half-mp 2.15s cubic-bezier(0.16, 1, 0.3, 1) both; }
+      .half-sf { animation: half-sf 2.15s cubic-bezier(0.16, 1, 0.3, 1) both; }
+      .seal { animation: stamp 2.15s cubic-bezier(0.16, 1, 0.3, 1) both; }
+      .who, .readout, .hint, .replay { animation: rise 2.15s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    }
+    @keyframes half-mp {
+      0% { opacity: 0; transform: translate3d(-42cqi, 0, 0); }
+      42% { opacity: 1; transform: translate3d(calc(25cqi + 0.7rem), 0, 0); }
+      100% { opacity: 1; transform: none; }
+    }
+    @keyframes half-sf {
+      0% { opacity: 0; transform: translate3d(42cqi, 0, 0); }
+      42% { opacity: 1; transform: translate3d(calc(-25cqi - 0.7rem), 0, 0); }
+      100% { opacity: 1; transform: none; }
+    }
+    @keyframes stamp {
+      0%, 40% { opacity: 0; transform: scale(1.7); }
+      58%, 100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes rise {
+      0%, 62% { opacity: 0; transform: translate3d(0, 0.65rem, 0); }
+      100% { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="bar"><span class="brand"><span>MP</span><span class="sf">SF</span></span><span>mpsf.us</span></header>
+  <main>
+    <section class="hero">
+      <h1 class="sr">MPSF. Maqsudjon Polatov va Sohiba Fayzullayeva.</h1>
+      <div class="stage" id="stage" data-focus="none">
+        <button type="button" class="pair pair-mp" data-side="mp" aria-pressed="false" aria-label="Maqsudjon Polatov, MP">
+          <span class="half half-mp"><span class="glyphs" aria-hidden="true"><span>M</span><span>P</span></span><span class="who"><span class="given">Maqsudjon</span><span class="family">Polatov</span></span></span>
+        </button>
+        <span class="seal-slot" aria-hidden="true"><span class="seal"></span></span>
+        <button type="button" class="pair pair-sf" data-side="sf" aria-pressed="false" aria-label="Sohiba Fayzullayeva, SF">
+          <span class="half half-sf"><span class="glyphs" aria-hidden="true"><span>S</span><span>F</span></span><span class="who"><span class="given">Sohiba</span><span class="family">Fayzullayeva</span></span></span>
+        </button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite">Ikki ism. Bir belgi.</p>
+      <p class="hint">Chap — siyoh. O‘ng — qizil. Bosing.</p>
+      <button type="button" class="replay" id="replay">Qayta</button>
+    </section>
+
+    <section class="sheet">
+      <p class="index">01</p>
+      <h2>To‘rt harf, ikki ism</h2>
+      <p class="lead">MPSF bitta so‘z emas. Chap yarmi siyohda, Maqsudjon Polatov. O‘ng yarmi qizilda, Sohiba Fayzullayeva.</p>
+      <div class="ledger">
+        <ul class="side side-mp">
+          <li><button type="button" class="row" data-side="mp"><span class="row-letter">M</span><span class="row-name">Maqsudjon</span><span class="row-role">ism</span></button></li>
+          <li><button type="button" class="row" data-side="mp"><span class="row-letter">P</span><span class="row-name">Polatov</span><span class="row-role">familiya</span></button></li>
+        </ul>
+        <div class="spine" aria-hidden="true"><span></span></div>
+        <ul class="side side-sf">
+          <li><button type="button" class="row" data-side="sf"><span class="row-letter">S</span><span class="row-name">Sohiba</span><span class="row-role">ism</span></button></li>
+          <li><button type="button" class="row" data-side="sf"><span class="row-letter">F</span><span class="row-name">Fayzullayeva</span><span class="row-role">familiya</span></button></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sheet">
+      <p class="index">02</p>
+      <h2>Yuborish uchun</h2>
+      <p class="lead">Havola o‘rniga shu qatorni yuboring. Ikki ism, bitta belgi.</p>
+      <div class="card">
+        <p class="card-mark"><span>MP</span><span class="sf">SF</span></p>
+        <p class="card-names"><span>Maqsudjon Polatov</span><span class="sf">Sohiba Fayzullayeva</span></p>
+        <p class="card-domain">mpsf.us</p>
+        <div class="actions">
+          <button type="button" id="copy">Nusxa</button>
+          <button type="button" id="share">Ulashish</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="sheet">
+      <p class="index">03</p>
+      <h2 id="keep-title">Shu telefonda</h2>
+      <p class="lead">Sana va eslatma faqat shu qurilmada qoladi. Boshqa hech kim ko‘rmaydi.</p>
+      <div class="keep">
+        <div class="field">
+          <label for="since">Sana</label>
+          <input id="since" type="date">
+          <p class="field-note" id="since-note">Bo‘sh qoldirish mumkin. Ma’nosini o‘zingiz bilasiz.</p>
+          <p class="count" id="count" hidden><span class="count-num" id="count-num"></span><span class="count-meta" id="count-meta"></span></p>
+          <button type="button" class="text-btn" id="clear-date" hidden>Sanani olib tashlash</button>
+        </div>
+        <div class="field">
+          <label for="note">Eslatma</label>
+          <textarea id="note" maxlength="280" placeholder="Qisqa qator"></textarea>
+          <p class="field-note" id="note-count">0/280</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="close">
+      <p class="vow"><span>Maqsudjon Polatov</span><span class="and"> va </span><span class="sf">Sohiba Fayzullayeva</span></p>
+      <p class="domain">mpsf.us</p>
+    </section>
+  </main>
+  <script>
+    const CARD = "MPSF\nMaqsudjon Polatov\nSohiba Fayzullayeva\nmpsf.us";
+    const MONTHS = ["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentabr","oktabr","noyabr","dekabr"];
+    const readout = document.getElementById("readout");
+    let focus = null;
+    function paint() {
+      const live = document.getElementById("stage");
+      document.documentElement.dataset.tone = focus || "both";
+      if (live) live.dataset.focus = focus || "none";
+      document.querySelectorAll("[data-side]").forEach((el) => {
+        el.setAttribute("aria-pressed", String(el.dataset.side === focus));
+      });
+      readout.textContent = focus === "mp" ? "MP — Maqsudjon Polatov" : focus === "sf" ? "SF — Sohiba Fayzullayeva" : "Ikki ism. Bir belgi.";
+    }
+    document.addEventListener("click", (event) => {
+      const el = event.target.closest("[data-side]");
+      if (!el) return;
+      focus = focus === el.dataset.side ? null : el.dataset.side;
+      paint();
+    });
+    document.getElementById("replay").addEventListener("click", () => {
+      focus = null;
+      const live = document.getElementById("stage");
+      const fresh = live.cloneNode(true);
+      fresh.id = "stage";
+      live.replaceWith(fresh);
+      paint();
+    });
+    const since = document.getElementById("since");
+    const note = document.getElementById("note");
+    const sinceNote = document.getElementById("since-note");
+    const count = document.getElementById("count");
+    const clearDate = document.getElementById("clear-date");
+    since.value = localStorage.getItem("mpsf-since") || "";
+    note.value = localStorage.getItem("mpsf-note") || "";
+    function renderDate() {
+      const iso = since.value;
+      if (iso) localStorage.setItem("mpsf-since", iso); else localStorage.removeItem("mpsf-since");
+      if (!iso) { count.hidden = true; sinceNote.hidden = false; clearDate.hidden = true; return; }
+      const start = new Date(iso + "T00:00:00");
+      const today = new Date();
+      const a = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+      const b = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+      const delta = Math.round((b - a) / 86400000);
+      const written = start.getDate() + " " + MONTHS[start.getMonth()] + " " + start.getFullYear();
+      document.getElementById("count-num").textContent = delta === 0 ? "Bugun" : String(Math.abs(delta));
+      document.getElementById("count-meta").textContent = delta === 0 ? written : written + (delta > 0 ? " · kun o‘tdi" : " · kun qoldi");
+      count.hidden = false; sinceNote.hidden = true; clearDate.hidden = false;
+    }
+    function renderNote() {
+      const value = note.value;
+      if (value) localStorage.setItem("mpsf-note", value); else localStorage.removeItem("mpsf-note");
+      document.getElementById("note-count").textContent = value.length + "/280";
+    }
+    since.addEventListener("input", renderDate);
+    clearDate.addEventListener("click", () => { since.value = ""; renderDate(); });
+    note.addEventListener("input", renderNote);
+    renderDate(); renderNote();
+    async function copyCard() {
+      try { await navigator.clipboard.writeText(CARD); }
+      catch {
+        const area = document.createElement("textarea");
+        area.value = CARD; area.setAttribute("readonly", "");
+        area.style.position = "fixed"; area.style.left = "-999px";
+        document.body.appendChild(area); area.select();
+        document.execCommand("copy"); area.remove();
+      }
+      const button = document.getElementById("copy");
+      button.textContent = "Olindi";
+      setTimeout(() => { button.textContent = "Nusxa"; }, 1600);
+    }
+    document.getElementById("copy").addEventListener("click", copyCard);
+    document.getElementById("share").addEventListener("click", async () => {
+      if (navigator.share) {
+        try { await navigator.share({ title: "MPSF", text: CARD, url: "https://mpsf.us/" }); return; } catch { return; }
+      }
+      copyCard();
+    });
+  </script>
+</body>
+</html>
