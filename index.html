@@ -86,15 +86,24 @@
     .vow .sf, .vow .and { font-style: italic; }
     .vow .and { color: var(--dust); }
     .domain { margin: 1.25rem 0 0; }
-    .arena { position: relative; height: 22rem; margin-top: 1.5rem; touch-action: none; user-select: none; }
+    .arena { margin-top: 1.25rem; user-select: none; }
+    .arena-stage { position: relative; height: 18.5rem; touch-action: none; }
     .arena canvas { width: 100%; height: 100%; display: block; }
-    .arena-ui { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 0.75rem; padding: 0.25rem 0; pointer-events: none; }
-    .arena-bubble { margin: 0 auto auto; padding: 0.55rem 0.9rem 0.65rem; border: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 86%, white); font-family: var(--display); font-size: clamp(1.35rem, 4vw, 1.85rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
+    .arena-bubble { position: absolute; top: 0; left: 50%; margin: 0; transform: translateX(-50%); padding: 0.55rem 0.9rem 0.65rem; border: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 86%, white); font-family: var(--display); font-size: clamp(1.35rem, 4vw, 1.85rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1; white-space: nowrap; }
     .arena-score { position: absolute; top: 0; left: 0; margin: 0; font-family: var(--display); font-size: clamp(2.4rem, 8vw, 3.4rem); font-weight: 560; letter-spacing: -0.045em; line-height: 0.85; }
-    .arena-best { margin: 0; color: var(--dust); font-size: 0.8125rem; }
-    .arena-go { pointer-events: auto; min-height: 2.75rem; padding: 0 1.2rem; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+    .arena-dock { display: flex; flex-direction: column; align-items: center; gap: 0.65rem; margin-top: 0.85rem; }
+    .arena-board { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; width: 100%; }
+    .arena-board button { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; min-height: 3.25rem; padding: 0.7rem 0.8rem; border: 1px solid var(--line); background: transparent; color: var(--ink); font: inherit; font-size: 0.95rem; font-weight: 500; text-align: left; }
+    .arena-board button b { font-family: var(--display); font-size: 1.45rem; font-weight: 560; letter-spacing: -0.04em; line-height: 1; }
+    .arena-board button[data-pick="sf"] { color: var(--cinnabar); }
+    .arena-board button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+    .arena-board button[data-pick="sf"][aria-pressed="true"] { background: var(--cinnabar); border-color: var(--cinnabar); }
+    .arena-board button:disabled { cursor: default; }
+    .arena-board button:active:not(:disabled) { scale: 0.98; }
+    .arena-board button:focus-visible, .arena-go:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 3px; }
+    .arena-go { min-height: 2.75rem; padding: 0 1.2rem; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
     .arena-go:active { scale: 0.96; }
-    .arena-go:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 3px; }
+    .arena-status { min-height: 1.1rem; margin: 0; color: var(--dust); font-size: 0.75rem; letter-spacing: 0.04em; }
     @media (min-width: 800px) {
       .bar { padding: 1.5rem 2rem 0; }
       .hero { padding-inline: 2rem; }
@@ -204,8 +213,8 @@
 
     <section class="sheet">
       <p class="index">04</p>
-      <h2>Ikki mascot</h2>
-      <p class="lead">Siyoh va qizil. Ekranni bosing — sakrash. Havoda yana bir marta. Muhrni ushlang, to‘siqdan o‘ting.</p>
+      <h2>Kim o‘ynaydi</h2>
+      <p class="lead">O‘zingizni tanlang. Siyoh — Maqsudjon, qizil — Sohiba. Eng yaxshi ball shu yerda qoladi, saytni ochgan har kim ko‘radi.</p>
       <div class="arena" data-seal-game></div>
     </section>
 
@@ -293,6 +302,6 @@
       copyCard();
     });
   </script>
-  <script src="game.js"></script>
+  <script src="game.js?v=6"></script>
 </body>
 </html>
