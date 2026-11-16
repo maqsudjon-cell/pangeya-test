@@ -1,13 +1,44 @@
 {
   "mp": {
     "name": "Maqsudjon",
-    "best": 0,
-    "at": null
+    "best": 18,
+    "at": "2026-11-16T15:53:26.697Z"
   },
   "sf": {
     "name": "Sohiba",
-    "best": 0,
-    "at": null
+    "best": 1,
+    "at": "2026-11-16T15:52:50.209Z"
   },
-  "runs": []
+  "runs": [
+    {
+      "side": "mp",
+      "score": 12,
+      "at": "2026-11-16T15:53:34.701Z",
+      "id": "s3dn3p5p85fmwjg0tt9"
+    },
+    {
+      "side": "mp",
+      "score": 18,
+      "at": "2026-11-16T15:53:26.697Z",
+      "id": "zdx2qojlsy9mwjg0nmx"
+    },
+    {
+      "side": "mp",
+      "score": 5,
+      "at": "2026-11-16T15:53:16.68Z",
+      "id": "g8djv3nuqnbmwjg0fwo"
+    },
+    {
+      "side": "mp",
+      "score": 8,
+      "at": "2026-11-16T15:52:57.676Z",
+      "id": "nspkjdd5ibrmwjg018s"
+    },
+    {
+      "side": "sf",
+      "score": 1,
+      "at": "2026-11-16T15:52:50.209Z",
+      "id": "ouc9a8tb2kmwjfzvhd"
+    }
+  ]
 }
